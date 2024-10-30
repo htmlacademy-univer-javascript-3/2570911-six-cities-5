@@ -1,7 +1,11 @@
 import { PlaceCard } from "../../components/place-card/place-card"
 import { SimpleCard } from "../../types/place-card-type";
 
-export function MainPage(abailableCards: SimpleCard[]){
+type warp = {
+    availableCards : SimpleCard[]
+}
+
+export function MainPage({availableCards}: warp){
     return(
         <div className="page page--gray page--main">
         <header className="header">
@@ -92,7 +96,7 @@ export function MainPage(abailableCards: SimpleCard[]){
                     </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                    {abailableCards.map(card => PlaceCard(card))}
+                    {availableCards.map(card => PlaceCard(card))}
                 </div>
                 </section>
                 <div className="cities__right-section">
