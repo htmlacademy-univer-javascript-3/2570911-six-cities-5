@@ -6,7 +6,7 @@ export const cardArray : SimpleCard[] = [
         imageLink : "img/apartment-01.jpg",
         price : 120,
         isFavourite : false,
-        rating : 80,
+        rating : 4,
         description : "Beautiful &amp; luxurious apartment at great location",
         placeType : "Apartment"
     },
@@ -15,7 +15,7 @@ export const cardArray : SimpleCard[] = [
         imageLink : "img/room.jpg",
         price : 80,
         isFavourite : true,
-        rating : 80,
+        rating : 4,
         description : "Wood and stone place",
         placeType : "Room"
     },
@@ -24,7 +24,7 @@ export const cardArray : SimpleCard[] = [
         imageLink : "img/apartment-02.jpg",
         price : 132,
         isFavourite : false,
-        rating : 80,
+        rating : 4,
         description : "Canal View Prinsengracht",
         placeType : "Apartment"
     },
@@ -33,7 +33,7 @@ export const cardArray : SimpleCard[] = [
         imageLink : "img/apartment-03.jpg",
         price : 180,
         isFavourite : false,
-        rating : 100,
+        rating : 5,
         description : "Nice, cozy, warm big bed apartment",
         placeType : "Apartment"
     },
@@ -42,7 +42,7 @@ export const cardArray : SimpleCard[] = [
         imageLink : "img/room.jpg",
         price : 80,
         isFavourite : true,
-        rating : 80,
+        rating : 4,
         description : "Wood and stone place",
         placeType : "Room"
     }
