@@ -1,11 +1,7 @@
-import { PlaceCard } from "../../components/place-card/place-card"
-import { SimpleCard } from "../../types/place-card-type";
+import { OfferList } from "../../components/offer-list/offer-list";
+import { OfferType } from "../../types/offer-type";
 
-type warp = {
-    availableCards : SimpleCard[]
-}
-
-export function MainPage({availableCards}: warp){
+export function MainPage({offers}: {offers : OfferType[]}){
     return(
         <div className="page page--gray page--main">
         <header className="header">
@@ -96,7 +92,7 @@ export function MainPage({availableCards}: warp){
                     </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                    {availableCards.map(card => PlaceCard(card))}
+                    <OfferList offers={offers} />
                 </div>
                 </section>
                 <div className="cities__right-section">
