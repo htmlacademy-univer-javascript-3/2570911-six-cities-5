@@ -1,5 +1,6 @@
 import { OfferList } from "../../components/offer-list/offer-list";
 import { OfferType } from "../../types/offer-type";
+import Map from "../../components/map/map";
 
 export function MainPage({offers}: {offers : OfferType[]}){
     return(
@@ -96,7 +97,7 @@ export function MainPage({offers}: {offers : OfferType[]}){
                 </div>
                 </section>
                 <div className="cities__right-section">
-                <section className="cities__map map"></section>
+                    <Map city={offers[0].city} offers={offers}/>
                 </div>
             </div>
             </div>
