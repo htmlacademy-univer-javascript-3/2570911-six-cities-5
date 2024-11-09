@@ -2,16 +2,18 @@ import { fullOffers } from "../../mocks/detailed-offer";
 import { useParams } from "react-router-dom";
 import { reviews } from "../../mocks/reviews";
 import { ReviewForm } from "../../components/review-form/review-form";
-import { OfferList } from "../../components/offer-list/offer-list";
-import { offers } from "../../mocks/offers";
+import { ReviewList } from "../../components/review-list/review-list";
+import Map from "../../components/map/map";
+import { MapType } from "../../mapTypes";
+import NearbyOffersList from "../../components/nearby-offers/nearby-offers";
+import { nearbyOffers } from "../../mocks/nearby-offers";
 
 export function Offer(){
     const {id} = useParams<{ id: string }>();
-    let offer = fullOffers.find((offer) => offer.id === id)
+    let currentOffer = fullOffers.find((offer) => offer.id === id)
     let offerReviews = reviews.filter((offer) => offer.id === id)
-    console.log(offerReviews)
-    console.log(id)
-    if (!offer) {
+    let currentOfferNearbies = nearbyOffers.find((offer) => offer.id === id);
+    if (!currentOffer) {
       return <div>Offer not found</div>;
     }
     return (
@@ -58,7 +60,7 @@ export function Offer(){
           <section className="offer">
             <div className="offer__gallery-container container">
               <div className="offer__gallery">
-              {offer.images.map((image) => (
+              {currentOffer.images.map((image) => (
                 <div key={image} className="offer__image-wrapper">
                   <img className="offer__image" src={image} alt="Photo studio" />
                 </div>
@@ -67,14 +69,14 @@ export function Offer(){
             </div>
             <div className="offer__container container">
               <div className="offer__wrapper">
-                {offer.isPremium &&
+                {currentOffer.isPremium &&
                 <div className="offer__mark">
                   <span>Premium</span>
                 </div>
                 }
                 <div className="offer__name-wrapper">
                   <h1 className="offer__name">
-                      {offer.title}
+                      {currentOffer.title}
                   </h1>
                   <button className="offer__bookmark-button button" type="button">
                     <svg className="offer__bookmark-icon" width={31} height={33}>
@@ -85,31 +87,31 @@ export function Offer(){
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
-                    <span style={{ width: `${(offer.rating / 5) * 100}%` }}/>
+                    <span style={{ width: `${(currentOffer.rating / 5) * 100}%` }}/>
                     <span className="visually-hidden">Rating</span>
                   </div>
-                  <span className="offer__rating-value rating__value">{offer.rating}</span>
+                  <span className="offer__rating-value rating__value">{currentOffer.rating}</span>
                 </div>
                 <ul className="offer__features">
                   <li className="offer__feature offer__feature--entire">
-                      {offer.type}
+                      {currentOffer.type}
                   </li>
                   <li className="offer__feature offer__feature--bedrooms">
-                      {offer.bedrooms} Bedrooms
+                      {currentOffer.bedrooms} Bedrooms
                   </li>
                   <li className="offer__feature offer__feature--adults">
-                      Max {offer.maxAdults} adults
+                      Max {currentOffer.maxAdults} adults
                   </li>
                 </ul>
                 <div className="offer__price">
-                  <b className="offer__price-value">€{offer.price}</b>
+                  <b className="offer__price-value">€{currentOffer.price}</b>
                   <span className="offer__price-text">&nbsp;night</span>
                 </div>
                 <div className="offer__inside">
                   <h2 className="offer__inside-title">Whats inside</h2>
                   <ul className="offer__inside-list">
                     {
-                      offer.goods.map((item) => ( <li className="offer__inside-item">{item}</li>))
+                      currentOffer.goods.map((item) => ( <li className="offer__inside-item">{item}</li>))
                     }
                   </ul>
                 </div>
@@ -119,18 +121,18 @@ export function Offer(){
                     <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
                       <img
                         className="offer__avatar user__avatar"
-                        src={offer.host.avatarUrl}
+                        src={currentOffer.host.avatarUrl}
                         width={74}
                         height={74}
                         alt="Host avatar"
                       />
                     </div>
-                    <span className="offer__user-name">{offer.host.name}</span>
-                    {offer.host.isPro && <span className="offer__user-status">Pro</span>}
+                    <span className="offer__user-name">{currentOffer.host.name}</span>
+                    {currentOffer.host.isPro && <span className="offer__user-status">Pro</span>}
                   </div>
                   <div className="offer__description">
                     <p className="offer__text">
-                        {offer.description}
+                        {currentOffer.description}
                     </p>
                   </div>
                 </div>
@@ -138,52 +140,24 @@ export function Offer(){
                   <h2 className="reviews__title">
                       Reviews · <span className="reviews__amount">{offerReviews.length}</span>
                   </h2>
-                  {offerReviews.map((review) => (
-                  <ul className="reviews__list">
-                    <li className="reviews__item">
-                      <div className="reviews__user user">
-                        <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                          <img
-                            className="reviews__avatar user__avatar"
-                            src={review.user.avatarUrl}
-                            width={54}
-                            height={54}
-                            alt="Reviews avatar"
-                          />
-                        </div>
-                        <span className="reviews__user-name">{review.user.name}</span>
-                      </div>
-                      <div className="reviews__info">
-                        <div className="reviews__rating rating">
-                          <div className="reviews__stars rating__stars">
-                            <span style={{width: `${review.rating * 20}%`}}/>
-                            <span className="visually-hidden">Rating</span>
-                          </div>
-                        </div>
-                        <p className="reviews__text">
-                            {review.comment}
-                        </p>
-                        <time className="reviews__time" dateTime={new Date(review.date).toISOString()}>
-                          {new Date(review.date).toLocaleString('EN', { month: 'long', year: 'numeric' })}
-                        </time>
-                      </div>
-                    </li>
-                  </ul>
-                  ))}
+                  <ReviewList offerReviews={offerReviews}/>
                   <ReviewForm></ReviewForm>
                 </section>
               </div>
             </div>
-            <section className="offer__map map"/>
+            {currentOfferNearbies 
+            ? (<Map city={currentOffer.city} offers={currentOfferNearbies.nearbyOffersIds} mapType={MapType.offerMap}/>)
+            : (<Map city={currentOffer.city} offers={[]} mapType={MapType.offerMap}/>)
+            }
           </section>
-          <div className="container">
-            <section className="near-places places">
+          {currentOfferNearbies 
+          ? (<NearbyOffersList offers={currentOfferNearbies.nearbyOffersIds}/>)
+          : <section className="near-places places">
               <h2 className="near-places__title">
-                  Other places in the neighbourhood
+                No offers nearby
               </h2>
-              <OfferList offers={offers.filter((offer) => offer.id !== id)} />
             </section>
-          </div>
+          }
         </main>
       </div>);
   }

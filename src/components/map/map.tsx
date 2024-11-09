@@ -5,10 +5,11 @@ import { useMap } from '../../hooks/useMap';
 import { CityType } from '../../types/city-type';
 import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../consts/const'
 import { OfferType } from '../../types/offer-type';
+import { MapType } from '../../mapTypes';
 
 
 
-export default function Map({city, offers} : {city : CityType, offers : OfferType[]}) {
+export default function Map({city, offers, mapType} : {city : CityType, offers : OfferType[], mapType : MapType}) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -39,5 +40,5 @@ export default function Map({city, offers} : {city : CityType, offers : OfferTyp
     }
   }, [map, offers]);
 
-  return <div className="cities__map map" ref={mapRef}></div>;
+  return <section className={mapType} ref={mapRef}></section>;
 }
