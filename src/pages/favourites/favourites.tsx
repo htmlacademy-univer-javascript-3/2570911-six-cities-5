@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AppRoute } from "../../route-types";
+import { AppRoute } from "../../enums/route-types";
 import { OfferType } from "../../types/offer-type"
 
 export function Favorites({offers} : {offers : OfferType[]}){
