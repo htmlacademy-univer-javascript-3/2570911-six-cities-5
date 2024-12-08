@@ -16,13 +16,13 @@ export const fullOffers : FullOfferType[] = [
       "https://14.design.htmlacademy.pro/static/hotel/3.jpg"
     ],
     "city": {
-      "name": "Amsterdam",
-      "location": {
-        "latitude": 52.37454,
-        "longitude": 4.897976,
-        "zoom": 13
-      }
-    },
+        "name": "Amsterdam",
+        "location": {
+          "latitude": 52.37454,
+          "longitude": 4.897976,
+          "zoom": 13
+        }
+      },
     "location": {
       "latitude": 52.36554,
       "longitude": 4.911976,
@@ -63,13 +63,13 @@ export const fullOffers : FullOfferType[] = [
       "https://14.design.htmlacademy.pro/static/hotel/15.jpg"
     ],
     "city": {
-      "name": "Amsterdam",
-      "location": {
-        "latitude": 52.37454,
-        "longitude": 4.897976,
-        "zoom": 13
-      }
-    },
+        "name": "Amsterdam",
+        "location": {
+          "latitude": 52.37454,
+          "longitude": 4.897976,
+          "zoom": 13
+        }
+      },
     "location": {
       "latitude": 52.385540000000006,
       "longitude": 4.902976,
@@ -110,13 +110,13 @@ export const fullOffers : FullOfferType[] = [
       "https://14.design.htmlacademy.pro/static/hotel/11.jpg"
     ],
     "city": {
-      "name": "Amsterdam",
-      "location": {
-        "latitude": 52.37454,
-        "longitude": 4.897976,
-        "zoom": 13
-      }
-    },
+        "name": "Amsterdam",
+        "location": {
+          "latitude": 52.37454,
+          "longitude": 4.897976,
+          "zoom": 13
+        }
+      },
     "location": {
       "latitude": 52.397540000000006,
       "longitude": 4.9099759999999995,
@@ -159,13 +159,13 @@ export const fullOffers : FullOfferType[] = [
       "https://14.design.htmlacademy.pro/static/hotel/4.jpg"
     ],
     "city": {
-      "name": "Amsterdam",
-      "location": {
-        "latitude": 52.37454,
-        "longitude": 4.897976,
-        "zoom": 13
-      }
-    },
+        "name": "Amsterdam",
+        "location": {
+          "latitude": 52.37454,
+          "longitude": 4.897976,
+          "zoom": 13
+        }
+      },
     "location": {
       "latitude": 52.37454,
       "longitude": 4.881976,
