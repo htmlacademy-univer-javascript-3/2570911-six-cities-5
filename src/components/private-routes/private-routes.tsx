@@ -1,6 +1,6 @@
 import { Navigate, Route} from "react-router-dom";
 import { Favorites } from "../../pages/favourites/favourites";
-import { AppRoute } from "../../route-types";
+import { AppRoute } from "../../enums/route-types";
 import { Offer } from "../../pages/offer/offer";
 import React from "react";
 import { OfferType } from "../../types/offer-type";

@@ -4,7 +4,7 @@ import { reviews } from "../../mocks/reviews";
 import { ReviewForm } from "../../components/review-form/review-form";
 import { ReviewList } from "../../components/review-list/review-list";
 import Map from "../../components/map/map";
-import { MapType } from "../../mapTypes";
+import { MapType } from "../../enums/mapTypes";
 import NearbyOffersList from "../../components/nearby-offers/nearby-offers";
 import { nearbyOffers } from "../../mocks/nearby-offers";
 
