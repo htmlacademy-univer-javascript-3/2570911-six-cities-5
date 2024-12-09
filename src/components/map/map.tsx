@@ -1,15 +1,14 @@
-import {useRef, useEffect} from 'react';
+import { useRef, useEffect } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useMap } from '../../hooks/useMap';
 import { CityType } from '../../types/city-type';
-import {URL_MARKER_DEFAULT, URL_MARKER_CURRENT} from '../../consts/const'
+import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../consts/const';
 import { OfferType } from '../../types/offer-type';
 import { MapType } from '../../enums/mapTypes';
 
-
-
-export default function Map({city, offers, mapType} : {city : CityType, offers : OfferType[], mapType : MapType}) {
+export default function Map({ city, offers, mapType, selectedOffer }:
+  { city: CityType, offers: OfferType[], mapType: MapType, selectedOffer: OfferType | undefined }) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -27,18 +26,29 @@ export default function Map({city, offers, mapType} : {city : CityType, offers :
 
   useEffect(() => {
     if (map) {
+      // Сначала удаляем все маркеры с карты
+      map.eachLayer((layer) => {
+        if (layer instanceof leaflet.Marker) {
+          map.removeLayer(layer);
+        }
+      });
+
+      // Добавляем маркеры с новой иконкой
+      console.log(selectedOffer)
       offers.forEach((offer) => {
         leaflet
           .marker({
             lat: offer.location.latitude,
             lng: offer.location.longitude,
           }, {
-            icon: defaultCustomIcon,
+            icon: selectedOffer && offer.id === selectedOffer.id
+              ? currentCustomIcon // Если это активное предложение, используем выделенную иконку
+              : defaultCustomIcon, // Для всех остальных — стандартную иконку
           })
           .addTo(map);
       });
     }
-  }, [map, offers]);
+  }, [map, offers, selectedOffer]); // Обновление маркеров при изменении offers или selectedOffer
 
   return <section className={mapType} ref={mapRef}></section>;
 }

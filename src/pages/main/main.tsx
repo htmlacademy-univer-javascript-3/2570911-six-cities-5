@@ -6,19 +6,41 @@ import { CitiesList } from "../../components/city-list/city-list";
 import { Cities, CitiesFullInfo } from "../../consts/cities";
 import { useAppSelector } from "../../hooks/storeHooks";
 import { useEffect, useState } from "react";
+import { SortTypes } from "../../enums/sortTypes";
+import { CityOfferList } from "../../components/city-offer-list/city-offer-list";
 
 export function MainPage(){
     const offers = useAppSelector((state) => state.offersList);
     const city = useAppSelector((state) => state.city);
+    const currentSortType = useAppSelector((state) => state.sortType);
 
     const [currentCityOffers, setCurrentCityOffers] = useState<OfferType[]>(offers);
     const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+    const selectedOffer = offers.find((offer) => offer.id === activeOfferId);
 
-    const activeOffer = offers.find((offer) => offer.id === activeOfferId);
     useEffect(() => {
         const filteredOffers = offers.filter((offer) => offer.city.name === city.name);
         setCurrentCityOffers(filteredOffers);
     }, [city, offers]);
+
+    useEffect(() => {
+        const filteredOffers = offers.filter((offer) => offer.city.name === city.name);
+    
+        const sortedOffers = [...filteredOffers].sort((offer1, offer2) => {
+          switch (currentSortType) {
+            case SortTypes.LowHigh:
+              return offer1.price - offer2.price;
+            case SortTypes.HighLow:
+              return offer2.price - offer1.price;
+            case SortTypes.Rated:
+              return offer2.rating - offer1.rating;
+            default:
+              return 0;
+          }
+        });
+    
+        setCurrentCityOffers(sortedOffers);
+      }, [city, offers, currentSortType]);
 
     return(
         <div className="page page--gray page--main">
@@ -59,31 +81,7 @@ export function MainPage(){
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{`${currentCityOffers.length} places to stay in ${city.name}`}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex={0}>
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex={0}>Popular</li>
-                  <li className="places__option" tabIndex={0}>Price: low to high</li>
-                  <li className="places__option" tabIndex={0}>Price: high to low</li>
-                  <li className="places__option" tabIndex={0}>Top rated first</li>
-                </ul>
-              </form>
-              <OfferList offers={currentCityOffers}/>
-            </section>
-            <div className="cities__right-section">
-              <Map city={city} offers={currentCityOffers} mapType={MapType.mainMap}/>
-            </div>
-          </div>
+            <CityOfferList city={city} currentCityOffers={currentCityOffers} selectedOffer={selectedOffer} selectedOfferChange={setActiveOfferId}/>
         </div>
       </main>
     </div>
