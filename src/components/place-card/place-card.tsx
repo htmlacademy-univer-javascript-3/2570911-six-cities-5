@@ -8,7 +8,10 @@ type PlaceCardProps = {
 
 export function PlaceCard({offer : {isPremium, previewImage, price, isFavorite, rating, title, type}, onMouseEnter, onMouseLeave} : PlaceCardProps): JSX.Element {
     return (
-        <article className="cities__card place-card">
+        <article className="cities__card place-card"
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+        >
             {(isPremium) && 
                 <div className="place-card__mark">
                     <span>Premium</span>
