@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import { OfferType } from "../../types/offer-type.tsx";
+import { AppRoute } from "../../enums/route-types.tsx";
 
 type PlaceCardProps = {
     offer: OfferType;
@@ -6,7 +8,8 @@ type PlaceCardProps = {
     onMouseLeave?: () => void;
   }
 
-export function PlaceCard({offer : {isPremium, previewImage, price, isFavorite, rating, title, type}, onMouseEnter, onMouseLeave} : PlaceCardProps): JSX.Element {
+export function PlaceCard({offer : {id, isPremium, previewImage, price, isFavorite, rating, title, type}, onMouseEnter, onMouseLeave} : PlaceCardProps): JSX.Element {
+    const link = AppRoute.Offer + "/" + id;
     return (
         <article className="cities__card place-card"
             onMouseEnter={onMouseEnter}
@@ -43,7 +46,7 @@ export function PlaceCard({offer : {isPremium, previewImage, price, isFavorite, 
                     </div>
                 </div>
                 <h2 className="place-card__name">
-                    <a href="#">{title}</a>
+                    <Link to={link}>{title}</Link>
                 </h2>
                 <p className="place-card__type">{type}</p>
             </div>

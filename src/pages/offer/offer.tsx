@@ -7,9 +7,15 @@ import Map from "../../components/map/map";
 import { MapType } from "../../enums/mapTypes";
 import NearbyOffersList from "../../components/nearby-offers/nearby-offers";
 import { nearbyOffers } from "../../mocks/nearby-offers";
+import { useAppSelector } from "../../hooks/storeHooks";
+import { useState } from "react";
 
 export function Offer(){
     const {id} = useParams<{ id: string }>();
+    const offers = useAppSelector((state) => state.offersList);
+    const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
+    const selectedOffer = offers.find((offer) => offer.id === activeOfferId);
+
     let currentOffer = fullOffers.find((offer) => offer.id === id)
     let offerReviews = reviews.filter((offer) => offer.id === id)
     let currentOfferNearbies = nearbyOffers.find((offer) => offer.id === id);
@@ -146,12 +152,12 @@ export function Offer(){
               </div>
             </div>
             {currentOfferNearbies 
-            ? (<Map city={currentOffer.city} offers={currentOfferNearbies.nearbyOffersIds} mapType={MapType.offerMap}/>)
-            : (<Map city={currentOffer.city} offers={[]} mapType={MapType.offerMap}/>)
+            ? (<Map city={currentOffer.city} offers={currentOfferNearbies.nearbyOffersIds} mapType={MapType.offerMap} selectedOffer={selectedOffer}/>)
+            : (<Map city={currentOffer.city} offers={[]} mapType={MapType.offerMap} selectedOffer={selectedOffer}/>)
             }
           </section>
           {currentOfferNearbies 
-          ? (<NearbyOffersList offers={currentOfferNearbies.nearbyOffersIds}/>)
+          ? (<NearbyOffersList offers={currentOfferNearbies.nearbyOffersIds} selectedOfferChange={setActiveOfferId} />)
           : <section className="near-places places">
               <h2 className="near-places__title">
                 No offers nearby

@@ -3,7 +3,7 @@ import { CityType } from "../../types/city-type";
 import { OfferType } from "../../types/offer-type";
 import { OfferList } from "../offer-list/offer-list";
 import Map from "../map/map";
-import Sorting from "../sorting/sotings";
+import Sorting from "../sorting/sortings";
 
 export function CityOfferList({city, currentCityOffers, selectedOffer, selectedOfferChange }:
    {city : CityType, currentCityOffers : OfferType[], selectedOffer : OfferType | undefined, selectedOfferChange : (offerId: string | null) => void; }) : JSX.Element{
