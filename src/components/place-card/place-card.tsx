@@ -1,6 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { OfferType } from "../../types/offer-type.tsx";
 import { AppRoute } from "../../enums/route-types.tsx";
+import { useCallback } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks.ts";
+import { changeOfferFavoriteStatus } from "../../redux-store/api-actions.ts";
 
 type PlaceCardProps = {
     offer: OfferType;
@@ -10,6 +13,15 @@ type PlaceCardProps = {
 
 export function PlaceCard({offer : {id, isPremium, previewImage, price, isFavorite, rating, title, type}, onMouseEnter, onMouseLeave} : PlaceCardProps): JSX.Element {
     const link = AppRoute.Offer + "/" + id;
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const isAuthorized = useAppSelector((state) => state.isAuthorized);
+    const onBannerClick = useCallback(() => {
+        if (!isAuthorized){
+          navigate(AppRoute.Login);
+        }
+        dispatch(changeOfferFavoriteStatus({offerId: id, status: +!isFavorite}));
+      }, [isAuthorized, dispatch, navigate, id, isFavorite]);
     return (
         <article className="cities__card place-card"
             onMouseEnter={onMouseEnter}
@@ -21,9 +33,9 @@ export function PlaceCard({offer : {id, isPremium, previewImage, price, isFavori
                 </div> 
             }
             <div className="cities__image-wrapper place-card__image-wrapper">
-                <a href="#">
+                <Link to={link}>
                     <img className="place-card__image" src={previewImage} width={260} height={200} alt="Place image" />
-                </a>
+                </Link>
             </div>
             <div className="place-card__info">
                 <div className="place-card__price-wrapper">
@@ -31,7 +43,7 @@ export function PlaceCard({offer : {id, isPremium, previewImage, price, isFavori
                         <b className="place-card__price-value">&euro;{price}</b>
                         <span className="place-card__price-text">&#47;&nbsp;night</span>
                     </div>
-                    <button className={`place-card__bookmark-button button ${isFavorite && "place-card__bookmark-button--active"} button`}
+                    <button onClick={onBannerClick} className={`place-card__bookmark-button button ${isFavorite && "place-card__bookmark-button--active"} button`}
                         type="button">
                         <svg className="place-card__bookmark-icon" width={18} height={19}>
                             <use xlinkHref="#icon-bookmark"></use>
@@ -41,7 +53,7 @@ export function PlaceCard({offer : {id, isPremium, previewImage, price, isFavori
                 </div>
                 <div className="place-card__rating rating">
                     <div className="place-card__stars rating__stars">
-                        <span style={{ width: `${rating * 20}%` }}></span>
+                        <span style={{ width: `${Math.round(rating) * 20}%` }}></span>
                         <span className="visually-hidden">Rating</span>
                     </div>
                 </div>

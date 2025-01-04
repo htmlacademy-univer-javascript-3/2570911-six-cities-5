@@ -5,7 +5,7 @@ import { authLogout } from "../../redux-store/api-actions";
 export function Header() : JSX.Element{
     const isAuthorized : boolean = useAppSelector((state) => state.isAuthorized)
     const userName = useAppSelector((state) => state.userName)
-
+    const offers = useAppSelector((state) => state.offersList)
     const dispatch = useAppDispatch();
     const endSession = () =>{
         dispatch(authLogout());
@@ -15,24 +15,24 @@ export function Header() : JSX.Element{
             <div className="container">
             <div className="header__wrapper">
                 <div className="header__left">
-                <a className="header__logo-link header__logo-link--active">
+                <Link to='/' className="header__logo-link header__logo-link--active">
                     <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width={81} height={41} />
-                </a>
+                </Link>
                 </div>
                 {isAuthorized 
                 ? (<nav className="header__nav">
                     <ul className="header__nav-list">
                         <li className="header__nav-item user">
-                        <a className="header__nav-link header__nav-link--profile" href="#">
+                        <Link to='/favourites' className="header__nav-link header__nav-link--profile">
                             <div className="header__avatar-wrapper user__avatar-wrapper">
                             </div>
                             <span className="header__user-name user__name">{userName}</span>
-                            <span className="header__favorite-count">3</span>
-                        </a>
+                            <span className="header__favorite-count">{offers.filter((offer) => offer.isFavorite).length}</span>
+                        </Link>
                         </li>
                         <li className="header__nav-item">
                             <Link to='/' className="header__nav-link" onClick={endSession}>
-                                <span className="header__signout">Sign out</span>
+                                <span className="header__signout">Log out</span>
                             </Link>
                         </li>
                     </ul>

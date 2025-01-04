@@ -13,7 +13,10 @@ export function CityOfferList({city, currentCityOffers, selectedOffer, selectedO
           <h2 className="visually-hidden">Places</h2>
           <b className="places__found">{`${currentCityOffers.length} places to stay in ${city.name}`}</b>
           <Sorting />
-          <OfferList offers={currentCityOffers} selectedOfferChange={selectedOfferChange}/>
+          {currentCityOffers.length > 0
+          ? (<OfferList offers={currentCityOffers} selectedOfferChange={selectedOfferChange}/>)
+          : (<p>No places to stay available</p>)
+          }
         </section>
         <div className="cities__right-section">
           <Map city={city} offers={currentCityOffers} mapType={MapType.mainMap} selectedOffer={selectedOffer}/>

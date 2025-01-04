@@ -10,15 +10,12 @@ import { useAppSelector } from "../../hooks/storeHooks";
 
 export function PrivateRoutes({isAuthorized} : { isAuthorized: boolean}){
 
-    
-    const reviews = useAppSelector((state) => state.reviews);
     const offers = useAppSelector((state) => state.offersList);  
 
     if (isAuthorized){
         return (
             <React.Fragment>
             <Route path={AppRoute.Favourites} element={<Favorites offers={offers}/>} />
-            <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
             <Route path={AppRoute.Login} element={<Navigate to={AppRoute.Main} replace />}/>
             </React.Fragment>
         )
@@ -27,7 +24,6 @@ export function PrivateRoutes({isAuthorized} : { isAuthorized: boolean}){
         return (
             <React.Fragment>
             <Route path={AppRoute.Favourites} element={<Navigate to={AppRoute.Login} replace />} />
-            <Route path={`${AppRoute.Offer}/:id`} element={<Navigate to={AppRoute.Login} replace />} />
             <Route path={AppRoute.Login} element={<Login />}/>
             </React.Fragment>
         )

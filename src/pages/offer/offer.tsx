@@ -1,25 +1,55 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { ReviewForm } from "../../components/review-form/review-form";
 import { ReviewList } from "../../components/review-list/review-list";
 import Map from "../../components/map/map";
 import { MapType } from "../../enums/mapTypes";
 import NearbyOffersList from "../../components/nearby-offers/nearby-offers";
-import { useAppSelector } from "../../hooks/storeHooks";
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
+import { useCallback, useEffect, useState } from "react";
 import { Header } from "../../components/header/header";
+import { changeOfferFavoriteStatus, fetchDetailOffer, fetchNearbyOffers, fetchReviews } from "../../redux-store/api-actions";
+import { AppRoute } from "../../enums/route-types";
+import { OfferType } from "../../types/offer-type";
 
 export function Offer(){
-    const {id} = useParams<{ id: string }>();
-    const offers = useAppSelector((state) => state.offersList);
+    let {id} = useParams<{ id: string }>();
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    if (!id){
+      id = '';
+    }
+    useEffect(() => {
+      if (id) {
+        dispatch(fetchDetailOffer({ offerId : id, navigate}));
+        dispatch(fetchNearbyOffers({offerId : id}));
+        dispatch(fetchReviews({offerId : id}));
+      }
+    }, [dispatch, id]);
+
+    
+    
+
+
     const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
-    const selectedOffer = offers.find((offer) => offer.id === activeOfferId);
-    const reviews = useAppSelector((state) => state.reviews)
-    let currentOffer = offers.find((offer) => offer.id === id)
-    let offerReviews = reviews.filter((offer) => offer.id === id)
-    const nearbyOffers = offers.filter((offer) => offer.city.name === currentOffer?.city.name)
-    let currentOfferNearbies = nearbyOffers.find((offer) => offer.id === id);
+    const reviews = useAppSelector((state) => state.reviews);
+    let currentOffer = useAppSelector((state) => state.selectedOffer);
+    let nearbyOffers = useAppSelector((state) => state.nearbyOffers);
+    const isAuthorized = useAppSelector((state) => state.isAuthorized);
     if (!currentOffer) {
       return <div>Offer not found</div>;
+    }
+    nearbyOffers = nearbyOffers.filter((offer) => offer.id !== currentOffer.id).slice(0, 3);
+    const simpleCurrentOffer : OfferType = {
+      id: currentOffer.id,
+      title: currentOffer.title,
+      type: currentOffer.type,
+      previewImage: currentOffer.images[0],
+      city: currentOffer.city,
+      location: currentOffer.location,
+      price: currentOffer.price,
+      isFavorite: currentOffer.isFavorite,
+      isPremium: currentOffer.isPremium,
+      rating: currentOffer.rating
     }
     return (
       <div className="page">
@@ -47,7 +77,7 @@ export function Offer(){
                       {currentOffer.title}
                   </h1>
                   <button className="offer__bookmark-button button" type="button">
-                    <svg className="offer__bookmark-icon" width={31} height={33}>
+                    <svg className={`${currentOffer.isFavorite ? `offer__bookmark-icon-active` : `offer__bookmark-icon`}`} width={31} height={33}>
                       <use xlinkHref="#icon-bookmark"/>
                     </svg>
                     <span className="visually-hidden">To bookmarks</span>
@@ -55,10 +85,10 @@ export function Offer(){
                 </div>
                 <div className="offer__rating rating">
                   <div className="offer__stars rating__stars">
-                    <span style={{ width: `${(currentOffer.rating / 5) * 100}%` }}/>
+                    <span style={{ width: `${(Math.round(currentOffer.rating) / 5) * 100}%` }}/>
                     <span className="visually-hidden">Rating</span>
                   </div>
-                  <span className="offer__rating-value rating__value">{currentOffer.rating}</span>
+                  <span className="offer__rating-value rating__value">{Math.round(currentOffer.rating)}</span>
                 </div>
                 <ul className="offer__features">
                   <li className="offer__feature offer__feature--entire">
@@ -79,7 +109,7 @@ export function Offer(){
                   <h2 className="offer__inside-title">Whats inside</h2>
                   <ul className="offer__inside-list">
                     {
-                      currentOffer.goods.map((item) => ( <li className="offer__inside-item">{item}</li>))
+                      currentOffer.goods.map((item) => ( <li key={currentOffer.goods.indexOf(item)} className="offer__inside-item">{item}</li>))
                     }
                   </ul>
                 </div>
@@ -106,20 +136,20 @@ export function Offer(){
                 </div>
                 <section className="offer__reviews reviews">
                   <h2 className="reviews__title">
-                      Reviews · <span className="reviews__amount">{offerReviews.length}</span>
+                      Reviews · <span className="reviews__amount">{reviews.length}</span>
                   </h2>
-                  <ReviewList offerReviews={offerReviews}/>
-                  <ReviewForm></ReviewForm>
+                  <ReviewList offerReviews={reviews}/>
+                  {isAuthorized && <ReviewForm offerId={id}></ReviewForm>}
                 </section>
               </div>
             </div>
-            {currentOfferNearbies 
-            ? (<Map city={currentOffer.city} offers={currentOfferNearbies.nearbyOffersIds} mapType={MapType.offerMap} selectedOffer={selectedOffer}/>)
-            : (<Map city={currentOffer.city} offers={[]} mapType={MapType.offerMap} selectedOffer={selectedOffer}/>)
+            {nearbyOffers 
+            ? (<Map city={currentOffer.city} offers={nearbyOffers.concat(simpleCurrentOffer)} mapType={MapType.offerMap} selectedOffer={simpleCurrentOffer}/>)
+            : (<Map city={currentOffer.city} offers={[]} mapType={MapType.offerMap} selectedOffer={simpleCurrentOffer}/>)
             }
           </section>
-          {currentOfferNearbies 
-          ? (<NearbyOffersList offers={currentOfferNearbies.nearbyOffersIds} selectedOfferChange={setActiveOfferId} />)
+          {nearbyOffers 
+          ? (<NearbyOffersList offers={nearbyOffers} selectedOfferChange={setActiveOfferId} />)
           : <section className="near-places places">
               <h2 className="near-places__title">
                 No offers nearby

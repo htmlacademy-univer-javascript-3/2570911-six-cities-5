@@ -1,11 +1,12 @@
 import { FormEvent, useState } from "react";
-import { useAppDispatch } from "../../hooks/storeHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 import { AuthData } from "../../types/auth-data";
 import { authLogin } from "../../redux-store/api-actions";
-import { redirect } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 
 export function Login(){
     const dispatch = useAppDispatch();
+    const city = useAppSelector((state) => state.city)
     const [authInfo, setAuthInfo] = useState<AuthData>({email: '', password: ''});
     const changeAuthInfo = (event: React.ChangeEvent<HTMLInputElement>) => 
       setAuthInfo((auth) => ({ ...auth, [event.target.name]: event.target.value }));
@@ -22,14 +23,14 @@ export function Login(){
     };
 
     return (
-        <div className="page page--gray page--login">
+    <div className="page page--gray page--login">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <Link to='/' className="header__logo-link">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -54,7 +55,7 @@ export function Login(){
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
+                <span>{city.name}</span>
               </a>
             </div>
           </section>

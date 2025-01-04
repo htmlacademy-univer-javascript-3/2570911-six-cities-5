@@ -10,6 +10,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { store } from "../../redux-store/index.ts";
 import { Spinner } from "../spinner/spinner.tsx";
 import { fetchOffers } from "../../redux-store/api-actions.ts";
+import { Offer } from "../../pages/offer/offer.tsx";
 
 
 export function App(){
@@ -22,6 +23,7 @@ export function App(){
             <Routes>
                 <Route path={AppRoute.Main} element={<MainPage/>}/>
                 <Route path={AppRoute.Error404} element={<Error404 />}/>
+                <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
                 {authorizedRoutes}
             </Routes>
         </BrowserRouter>)

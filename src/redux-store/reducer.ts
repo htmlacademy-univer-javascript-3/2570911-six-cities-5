@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, updateLoadingStatus, updateOffers, reSort, updateAuthorizationStatus, updateUserName } from './action';
+import { changeCity, updateLoadingStatus, updateOffers, reSort, updateAuthorizationStatus, updateUserName, updateSelectedOffer, updateOffersNearby, updateReviews, updateFavourites } from './action';
 import { StateType } from '../types/state-type';
 import { SortTypes } from '../enums/sortTypes';
 
@@ -10,13 +10,28 @@ const initialState: StateType = {
   isLoaded: false,
   reviews : [],
   isAuthorized : false,
-  userName : ""
+  userName : "",
+  selectedOffer : undefined,
+  nearbyOffers : [],
+  favourites : []
 };
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(updateAuthorizationStatus, (state, { payload }) => {
       state.isAuthorized = payload;
+    })
+    .addCase(updateFavourites, (state, {payload}) => {
+      state.favourites = payload;
+    })
+    .addCase(updateReviews, (state, {payload}) => {
+      state.reviews = payload;
+    })
+    .addCase(updateOffersNearby, (state, {payload}) => {
+      state.nearbyOffers = payload;
+    })
+    .addCase(updateSelectedOffer, (state, {payload}) => {
+      state.selectedOffer = payload;
     })
     .addCase(updateUserName, (state, {payload}) => {
       state.userName = payload;

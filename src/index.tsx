@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-store.dispatch(fetchOffers());
+store.dispatch(fetchOffers({isSityChangedZero : true}));
 store.dispatch(checkAuth());
 
 root.render(
