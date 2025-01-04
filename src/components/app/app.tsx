@@ -1,7 +1,7 @@
 import { MainPage } from "../../pages/main/main";
 import { Error404 } from "../../pages/error404/error404";
 import {BrowserRouter, Route, Routes} from "react-router-dom"
-import { AppRoute } from "../../enums/route-types";
+import { AppRoutes } from "../../enums/route-types";
 import { PrivateRoutes } from "../private-routes/private-routes";
 import {useAppDispatch, useAppSelector} from '../../hooks/storeHooks.ts';
 import {updateOffers, updateReviews} from '../../redux-store/action.ts';
@@ -21,9 +21,9 @@ export function App(){
         isLoaded 
         ? (<BrowserRouter>
             <Routes>
-                <Route path={AppRoute.Main} element={<MainPage/>}/>
-                <Route path={AppRoute.Error404} element={<Error404 />}/>
-                <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
+                <Route path={AppRoutes.Main} element={<MainPage/>}/>
+                <Route path={AppRoutes.Error404} element={<Error404 />}/>
+                <Route path={`${AppRoutes.Offer}/:id`} element={<Offer />} />
                 {authorizedRoutes}
             </Routes>
         </BrowserRouter>)

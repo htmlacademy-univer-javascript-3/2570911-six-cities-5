@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AppRoute } from "../../enums/route-types";
+import { AppRoutes } from "../../enums/route-types";
 import { OfferType } from "../../types/offer-type";
 import { useCallback } from "react";
 import { changeOfferFavoriteStatus } from "../../redux-store/api-actions";
@@ -18,7 +18,7 @@ export function FavouriteOffer({offer} : {offer : OfferType}) : JSX.Element{
                 <span>Premium</span>
                 </div>}
             <div className="favorites__image-wrapper place-card__image-wrapper">
-                <Link to={`${AppRoute.Offer}/${offer.id}`}>
+                <Link to={`${AppRoutes.Offer}/${offer.id}`}>
                 <img className="place-card__image" src={offer.previewImage} width="150" height="110" alt="Place image" />
                 </Link>
             </div>
@@ -42,7 +42,7 @@ export function FavouriteOffer({offer} : {offer : OfferType}) : JSX.Element{
                 </div>
                 </div>
                 <h2 className="place-card__name">
-                <Link to={`${AppRoute.Offer}/${offer.id}`}>{offer.title}</Link>
+                <Link to={`${AppRoutes.Offer}/${offer.id}`}>{offer.title}</Link>
                 </h2>
                 <p className="place-card__type">{offer.type[0].toUpperCase() + offer.type.substring(1)}</p>
             </div>

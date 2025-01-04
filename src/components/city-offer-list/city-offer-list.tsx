@@ -1,4 +1,4 @@
-import { MapType } from "../../enums/mapTypes";
+import { MapTypes } from "../../enums/mapTypes";
 import { CityType } from "../../types/city-type";
 import { OfferType } from "../../types/offer-type";
 import { OfferList } from "../offer-list/offer-list";
@@ -19,7 +19,7 @@ export function CityOfferList({city, currentCityOffers, selectedOffer, selectedO
           }
         </section>
         <div className="cities__right-section">
-          <Map city={city} offers={currentCityOffers} mapType={MapType.mainMap} selectedOffer={selectedOffer}/>
+          <Map city={city} offers={currentCityOffers} mapType={MapTypes.mainMap} selectedOffer={selectedOffer}/>
         </div>
       </div>
     )

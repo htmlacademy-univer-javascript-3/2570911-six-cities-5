@@ -4,9 +4,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { updateOffers, updateLoadingStatus, changeCity, updateAuthorizationStatus, updateUserName, updateSelectedOffer, updateReviews, updateOffersNearby, updateFavourites } from './action';
 import { OfferType } from '../types/offer-type';
 import { FullOfferType } from '../types/offer-full-description-type';
-import { User } from '../types/user';
+import { UserType } from '../types/user';
 import { dropToken, saveToken } from '../api/token';
-import { AuthData } from '../types/auth-data';
+import { AuthDataType } from '../types/auth-data';
 import { ReviewType } from '../types/reviews-type';
 import { NavigateFunction } from 'react-router-dom';
 
@@ -40,7 +40,7 @@ export const checkAuth = createAsyncThunk<void, undefined, {
   'auth/check',
   async (_, {dispatch, extra: api}) => {
     try {
-      const {data} = await api.get<User>('/login');
+      const {data} = await api.get<UserType>('/login');
       dispatch(updateUserName(data.name));
       dispatch(updateAuthorizationStatus(true));
     } catch (error){
@@ -53,7 +53,7 @@ export const checkAuth = createAsyncThunk<void, undefined, {
   },
 );
 
-export const authLogin = createAsyncThunk<void, AuthData, {
+export const authLogin = createAsyncThunk<void, AuthDataType, {
   dispatch: Dispatch;
   state: State;
   extra: AxiosInstance;
@@ -61,7 +61,7 @@ export const authLogin = createAsyncThunk<void, AuthData, {
   'auth/login',
   async (authData, {dispatch, extra: api}) => {
     try {
-      const {data} = await api.post<User>('/login', authData);
+      const {data} = await api.post<UserType>('/login', authData);
       saveToken(data.token);
       dispatch(updateUserName(data.name));
       dispatch(updateAuthorizationStatus(true));

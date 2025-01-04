@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { AppRoute } from "../../enums/route-types";
+import { AppRoutes } from "../../enums/route-types";
 import { OfferType } from "../../types/offer-type"
 import { Header } from "../../components/header/header";
 import { FavouriteOffer } from "../../components/favourite-offer/favourite-offer";

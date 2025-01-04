@@ -1,9 +1,9 @@
 import { OfferList } from "../../components/offer-list/offer-list";
 import { OfferType } from "../../types/offer-type";
 import Map from "../../components/map/map";
-import { MapType } from "../../enums/mapTypes";
+import { MapTypes } from "../../enums/mapTypes";
 import { CitiesList } from "../../components/city-list/city-list";
-import { Cities, CitiesFullInfo } from "../../consts/cities";
+import { CITIES, CITIESFULLINFO } from "../../consts/cities";
 import { useAppSelector } from "../../hooks/storeHooks";
 import { useEffect, useState } from "react";
 import { SortTypes } from "../../enums/sortTypes";
@@ -51,7 +51,7 @@ export function MainPage(){
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList cities={CitiesFullInfo}/>
+            <CitiesList cities={CITIESFULLINFO}/>
           </section>
         </div>
         <div className="cities">

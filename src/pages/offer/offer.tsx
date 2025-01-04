@@ -2,13 +2,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ReviewForm } from "../../components/review-form/review-form";
 import { ReviewList } from "../../components/review-list/review-list";
 import Map from "../../components/map/map";
-import { MapType } from "../../enums/mapTypes";
+import { MapTypes } from "../../enums/mapTypes";
 import NearbyOffersList from "../../components/nearby-offers/nearby-offers";
 import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
 import { useCallback, useEffect, useState } from "react";
 import { Header } from "../../components/header/header";
 import { changeOfferFavoriteStatus, fetchDetailOffer, fetchNearbyOffers, fetchReviews } from "../../redux-store/api-actions";
-import { AppRoute } from "../../enums/route-types";
+import { AppRoutes } from "../../enums/route-types";
 import { OfferType } from "../../types/offer-type";
 
 export function Offer(){
@@ -144,8 +144,8 @@ export function Offer(){
               </div>
             </div>
             {nearbyOffers 
-            ? (<Map city={currentOffer.city} offers={nearbyOffers.concat(simpleCurrentOffer)} mapType={MapType.offerMap} selectedOffer={simpleCurrentOffer}/>)
-            : (<Map city={currentOffer.city} offers={[]} mapType={MapType.offerMap} selectedOffer={simpleCurrentOffer}/>)
+            ? (<Map city={currentOffer.city} offers={nearbyOffers.concat(simpleCurrentOffer)} mapType={MapTypes.offerMap} selectedOffer={simpleCurrentOffer}/>)
+            : (<Map city={currentOffer.city} offers={[]} mapType={MapTypes.offerMap} selectedOffer={simpleCurrentOffer}/>)
             }
           </section>
           {nearbyOffers 

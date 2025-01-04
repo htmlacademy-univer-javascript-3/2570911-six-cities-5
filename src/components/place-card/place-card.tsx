@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { OfferType } from "../../types/offer-type.tsx";
-import { AppRoute } from "../../enums/route-types.tsx";
+import { AppRoutes } from "../../enums/route-types.tsx";
 import { useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks.ts";
 import { changeOfferFavoriteStatus } from "../../redux-store/api-actions.ts";
@@ -12,13 +12,13 @@ type PlaceCardProps = {
   }
 
 export function PlaceCard({offer : {id, isPremium, previewImage, price, isFavorite, rating, title, type}, onMouseEnter, onMouseLeave} : PlaceCardProps): JSX.Element {
-    const link = AppRoute.Offer + "/" + id;
+    const link = AppRoutes.Offer + "/" + id;
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const isAuthorized = useAppSelector((state) => state.isAuthorized);
     const onBannerClick = useCallback(() => {
         if (!isAuthorized){
-          navigate(AppRoute.Login);
+          navigate(AppRoutes.Login);
         }
         dispatch(changeOfferFavoriteStatus({offerId: id, status: +!isFavorite}));
       }, [isAuthorized, dispatch, navigate, id, isFavorite]);

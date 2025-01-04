@@ -5,10 +5,10 @@ import { useMap } from '../../hooks/useMap';
 import { CityType } from '../../types/city-type';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../consts/const';
 import { OfferType } from '../../types/offer-type';
-import { MapType } from '../../enums/mapTypes';
+import { MapTypes } from '../../enums/mapTypes';
 
 export default function Map({ city, offers, mapType, selectedOffer }:
-  { city: CityType, offers: OfferType[], mapType: MapType, selectedOffer: OfferType | undefined }) {
+  { city: CityType, offers: OfferType[], mapType: MapTypes, selectedOffer: OfferType | undefined }) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 

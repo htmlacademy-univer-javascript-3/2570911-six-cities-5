@@ -1,11 +1,11 @@
 import axios, {AxiosInstance, InternalAxiosRequestConfig} from 'axios';
 import { getToken } from './token';
-import { ApiUrl, Timeout } from '../consts/const';
+import { BASEURL, TIMEOUT } from '../consts/const';
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
-    baseURL: ApiUrl,
-    timeout: Timeout,
+    baseURL: BASEURL,
+    timeout: TIMEOUT,
   });
 
   api.interceptors.request.use(

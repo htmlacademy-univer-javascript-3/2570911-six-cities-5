@@ -1,13 +1,13 @@
 import { FormEvent, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
-import { AuthData } from "../../types/auth-data";
+import { AuthDataType } from "../../types/auth-data";
 import { authLogin } from "../../redux-store/api-actions";
 import { Link, redirect } from "react-router-dom";
 
 export function Login(){
     const dispatch = useAppDispatch();
     const city = useAppSelector((state) => state.city)
-    const [authInfo, setAuthInfo] = useState<AuthData>({email: '', password: ''});
+    const [authInfo, setAuthInfo] = useState<AuthDataType>({email: '', password: ''});
     const changeAuthInfo = (event: React.ChangeEvent<HTMLInputElement>) => 
       setAuthInfo((auth) => ({ ...auth, [event.target.name]: event.target.value }));
 

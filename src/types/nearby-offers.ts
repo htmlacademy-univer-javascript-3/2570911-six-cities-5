@@ -1,6 +1,6 @@
 import { OfferType } from "./offer-type"
 
-export type NearbyOffer = {
+export type NearbyOfferType = {
     id : string,
     nearbyOffersIds : OfferType[]
 }
