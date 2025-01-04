@@ -9,4 +9,6 @@ export type StateType = {
     reviews: ReviewType[];
     sortType : SortTypes;
     isLoaded : boolean;
+    isAuthorized : boolean;
+    userName : string;
   };

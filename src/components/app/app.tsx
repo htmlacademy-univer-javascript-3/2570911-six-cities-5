@@ -14,7 +14,7 @@ import { fetchOffers } from "../../redux-store/api-actions.ts";
 
 export function App(){
     const isLoaded : boolean = useAppSelector((state) => state.isLoaded);
-    let isUserAuthorized = true; 
+    let isUserAuthorized = useAppSelector((state) => state.isAuthorized);
     let authorizedRoutes = PrivateRoutes({isAuthorized : isUserAuthorized})
     return (
         isLoaded 

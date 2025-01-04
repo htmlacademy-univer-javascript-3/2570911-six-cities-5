@@ -9,4 +9,6 @@ export const changeCity = createAction<CityType>('city/changeCity');
 export const updateReviews = createAction<ReviewType[]>('reviews/updateReviews');
 export const reSort = createAction<SortTypes>('reSort');
 export const setCurrentOfferId = createAction<string>('offer/set');
-export const updateLoadingStatus = createAction<boolean>('loading/set');
+export const updateLoadingStatus = createAction<boolean>('loading/update');
+export const updateAuthorizationStatus = createAction<boolean>('authorization/update');
+export const updateUserName = createAction<string>('name/update');
