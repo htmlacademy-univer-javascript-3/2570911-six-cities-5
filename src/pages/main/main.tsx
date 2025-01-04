@@ -10,7 +10,7 @@ import { SortTypes } from "../../enums/sortTypes";
 import { CityOfferList } from "../../components/city-offer-list/city-offer-list";
 
 export function MainPage(){
-    const offers = useAppSelector((state) => state.offersList);
+    const offers = useAppSelector((state) => state.offersList); 
     const city = useAppSelector((state) => state.city);
     const currentSortType = useAppSelector((state) => state.sortType);
 

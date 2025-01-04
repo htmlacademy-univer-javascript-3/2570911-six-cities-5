@@ -5,9 +5,15 @@ import { Offer } from "../../pages/offer/offer";
 import React from "react";
 import { OfferType } from "../../types/offer-type";
 import { Login } from "../../pages/login/login";
+import { useAppSelector } from "../../hooks/storeHooks";
 
 
-export function PrivateRoutes({isAuthorized, offers} : { isAuthorized: boolean, offers : OfferType[] }){
+export function PrivateRoutes({isAuthorized} : { isAuthorized: boolean}){
+
+    
+    const reviews = useAppSelector((state) => state.reviews);
+    const offers = useAppSelector((state) => state.offersList);  
+
     if (isAuthorized){
         return (
             <React.Fragment>

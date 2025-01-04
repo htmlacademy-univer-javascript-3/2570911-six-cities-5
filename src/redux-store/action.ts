@@ -8,3 +8,5 @@ export const updateOffers = createAction<OfferType[]>('offers/updateOffers');
 export const changeCity = createAction<CityType>('city/changeCity');
 export const updateReviews = createAction<ReviewType[]>('reviews/updateReviews');
 export const reSort = createAction<SortTypes>('reSort');
+export const setCurrentOfferId = createAction<string>('offer/set');
+export const updateLoadingStatus = createAction<boolean>('loading/set');

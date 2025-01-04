@@ -8,25 +8,23 @@ import {updateOffers, updateReviews} from '../../redux-store/action.ts';
 import { Provider } from "react-redux";
 import { HelmetProvider } from "react-helmet-async";
 import { store } from "../../redux-store/index.ts";
+import { Spinner } from "../spinner/spinner.tsx";
+import { fetchOffers } from "../../redux-store/api-actions.ts";
 
 
 export function App(){
-    const reviews = useAppSelector((state) => state.reviews);
-    const offers = useAppSelector((state) => state.offersList);
-    const dispatch = useAppDispatch();
-    dispatch(updateOffers(offers));
-    dispatch(updateReviews(reviews));
-    let isUserAuthorized = true;
-    let authorizedRoutes = PrivateRoutes({isAuthorized : isUserAuthorized, offers : offers})
+    const isLoaded : boolean = useAppSelector((state) => state.isLoaded);
+    let isUserAuthorized = true; 
+    let authorizedRoutes = PrivateRoutes({isAuthorized : isUserAuthorized})
     return (
-        <Provider store={store}>
-            <BrowserRouter>
-                <Routes>
-                    <Route path={AppRoute.Main} element={<MainPage/>}/>
-                    <Route path={AppRoute.Error404} element={<Error404 />}/>
-                    {authorizedRoutes}
-                </Routes>
-            </BrowserRouter>
-        </Provider>
+        isLoaded 
+        ? (<BrowserRouter>
+            <Routes>
+                <Route path={AppRoute.Main} element={<MainPage/>}/>
+                <Route path={AppRoute.Error404} element={<Error404 />}/>
+                {authorizedRoutes}
+            </Routes>
+        </BrowserRouter>)
+        : (<Spinner />)        
     )
 }

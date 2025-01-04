@@ -2,16 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from './components/app/app';
 import { cardArray } from './available-place-cards';
-import { offers } from './mocks/offers';
-import { reviews } from './mocks/reviews';
-import { fullOffers } from './mocks/detailed-offer';
 import { Provider } from 'react-redux';
 import { store } from './redux-store';
+import { useAppDispatch } from './hooks/storeHooks';
+import { fetchOffers } from './redux-store/api-actions';
 
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+store.dispatch(fetchOffers());  
 
 root.render(
   <React.StrictMode>

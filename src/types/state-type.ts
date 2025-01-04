@@ -8,4 +8,5 @@ export type StateType = {
     offersList: OfferType[];
     reviews: ReviewType[];
     sortType : SortTypes;
+    isLoaded : boolean;
   };

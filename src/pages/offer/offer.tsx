@@ -1,12 +1,9 @@
-import { fullOffers } from "../../mocks/detailed-offer";
 import { useParams } from "react-router-dom";
-import { reviews } from "../../mocks/reviews";
 import { ReviewForm } from "../../components/review-form/review-form";
 import { ReviewList } from "../../components/review-list/review-list";
 import Map from "../../components/map/map";
 import { MapType } from "../../enums/mapTypes";
 import NearbyOffersList from "../../components/nearby-offers/nearby-offers";
-import { nearbyOffers } from "../../mocks/nearby-offers";
 import { useAppSelector } from "../../hooks/storeHooks";
 import { useState } from "react";
 
@@ -15,9 +12,10 @@ export function Offer(){
     const offers = useAppSelector((state) => state.offersList);
     const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
     const selectedOffer = offers.find((offer) => offer.id === activeOfferId);
-
-    let currentOffer = fullOffers.find((offer) => offer.id === id)
+    const reviews = useAppSelector((state) => state.reviews)
+    let currentOffer = offers.find((offer) => offer.id === id)
     let offerReviews = reviews.filter((offer) => offer.id === id)
+    const nearbyOffers = offers.filter((offer) => offer.city.name === currentOffer?.city.name)
     let currentOfferNearbies = nearbyOffers.find((offer) => offer.id === id);
     if (!currentOffer) {
       return <div>Offer not found</div>;

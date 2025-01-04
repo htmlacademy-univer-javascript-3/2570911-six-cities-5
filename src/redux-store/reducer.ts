@@ -1,20 +1,14 @@
-
 import { createReducer } from '@reduxjs/toolkit';
-import { updateOffers, changeCity, updateReviews, reSort } from './action';
-import { OfferType } from '../types/offer-type';
-import { offers } from '../mocks/offers';
-import { ReviewType } from '../types/reviews-type';
-import { reviews } from '../mocks/reviews';
-import { CityType } from '../types/city-type';
-import { CitiesFullInfo } from '../consts/cities';
+import { changeCity, updateLoadingStatus, updateOffers, reSort } from './action';
 import { StateType } from '../types/state-type';
 import { SortTypes } from '../enums/sortTypes';
 
 const initialState: StateType = {
-  city: CitiesFullInfo.Paris,
+  city: {location:{latitude:0, longitude:0, zoom:0}, name:''},
   offersList: [],
-  reviews: [],
-  sortType : SortTypes.Popular
+  sortType: SortTypes.Popular,
+  isLoaded: false,
+  reviews : []
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -22,13 +16,28 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(changeCity, (state, { payload }) => {
       state.city = payload;
     })
-    .addCase(updateOffers, (state) => {
-      state.offersList = offers;
+    .addCase(updateOffers, (state, { payload }) => {
+      state.offersList = payload;
     })
-    .addCase(updateReviews, (state) => {
-      state.reviews = reviews;
+    .addCase(reSort, (state, { payload }) => {
+      state.sortType = payload;
+      const arrayForSort = [...state.offersList];
+      switch (payload) {
+        case SortTypes.Popular:
+          state.offersList = arrayForSort;
+          break;
+        case SortTypes.HighLow:
+          state.offersList = arrayForSort.sort((a, b) => b.price - a.price);
+          break;
+        case SortTypes.LowHigh:
+          state.offersList = arrayForSort.sort((a, b) => a.price - b.price);
+          break;
+        case SortTypes.Rated:
+          state.offersList = arrayForSort.sort((a, b) => b.rating - a.rating);
+          break;
+      }
     })
-    .addCase(reSort, (state, { payload}) => {
-        state.sortType = payload;
-    })
+    .addCase(updateLoadingStatus, (state, { payload }) => {
+      state.isLoaded = payload;
+    });
 });
