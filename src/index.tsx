@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App } from './components/app/app';
-import { cardArray } from './available-place-cards';
-import { offers } from './mocks/offers';
-import { reviews } from './mocks/reviews';
-import { fullOffers } from './mocks/detailed-offer';
 import { Provider } from 'react-redux';
 import { store } from './redux-store';
+import { checkAuth, fetchOffers } from './redux-store/api-actions';
 
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+store.dispatch(fetchOffers({isSityChangedZero : true}));
+store.dispatch(checkAuth());
 
 root.render(
   <React.StrictMode>

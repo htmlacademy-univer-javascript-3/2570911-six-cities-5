@@ -1,4 +1,4 @@
-export type SimpleCard = {
+export type SimpleCardType = {
     isPremium : boolean,
     imageLink : string,
     price : number,

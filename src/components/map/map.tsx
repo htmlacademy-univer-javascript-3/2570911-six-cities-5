@@ -5,10 +5,10 @@ import { useMap } from '../../hooks/useMap';
 import { CityType } from '../../types/city-type';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../consts/const';
 import { OfferType } from '../../types/offer-type';
-import { MapType } from '../../enums/mapTypes';
+import { MapTypes } from '../../enums/mapTypes';
 
 export default function Map({ city, offers, mapType, selectedOffer }:
-  { city: CityType, offers: OfferType[], mapType: MapType, selectedOffer: OfferType | undefined }) {
+  { city: CityType, offers: OfferType[], mapType: MapTypes, selectedOffer: OfferType | undefined }) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
@@ -26,15 +26,12 @@ export default function Map({ city, offers, mapType, selectedOffer }:
 
   useEffect(() => {
     if (map) {
-      // Сначала удаляем все маркеры с карты
       map.eachLayer((layer) => {
         if (layer instanceof leaflet.Marker) {
           map.removeLayer(layer);
         }
       });
 
-      // Добавляем маркеры с новой иконкой
-      console.log(selectedOffer)
       offers.forEach((offer) => {
         leaflet
           .marker({
@@ -42,13 +39,13 @@ export default function Map({ city, offers, mapType, selectedOffer }:
             lng: offer.location.longitude,
           }, {
             icon: selectedOffer && offer.id === selectedOffer.id
-              ? currentCustomIcon // Если это активное предложение, используем выделенную иконку
-              : defaultCustomIcon, // Для всех остальных — стандартную иконку
+              ? currentCustomIcon 
+              : defaultCustomIcon,
           })
           .addTo(map);
       });
     }
-  }, [map, offers, selectedOffer]); // Обновление маркеров при изменении offers или selectedOffer
+  }, [map, offers, selectedOffer]); 
 
   return <section className={mapType} ref={mapRef}></section>;
 }
