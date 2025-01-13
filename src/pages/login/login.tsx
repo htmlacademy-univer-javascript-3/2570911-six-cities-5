@@ -6,7 +6,7 @@ import { Link, redirect } from "react-router-dom";
 
 export function Login(){
     const dispatch = useAppDispatch();
-    const city = useAppSelector((state) => state.city)
+    const city = useAppSelector((state) => state.mainpage.city)
     const [authInfo, setAuthInfo] = useState<AuthDataType>({email: '', password: ''});
     const changeAuthInfo = (event: React.ChangeEvent<HTMLInputElement>) => 
       setAuthInfo((auth) => ({ ...auth, [event.target.name]: event.target.value }));
