@@ -3,9 +3,9 @@ import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks"
 import { authLogout } from "../../redux-store/api-actions";
 
 export function Header() : JSX.Element{
-    const isAuthorized : boolean = useAppSelector((state) => state.isAuthorized)
-    const userName = useAppSelector((state) => state.userName)
-    const offers = useAppSelector((state) => state.offersList)
+    const isAuthorized : boolean = useAppSelector((state) => state.user.isAuthorized)
+    const userName = useAppSelector((state) => state.user.userName)
+    const offers = useAppSelector((state) => state.mainpage.offersList)
     const dispatch = useAppDispatch();
     const endSession = () =>{
         dispatch(authLogout());

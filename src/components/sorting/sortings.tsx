@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { SortTypes } from '../../enums/sortTypes';
 import { useAppDispatch, useAppSelector } from '../../hooks/storeHooks';
-import { reSort } from '../../redux-store/action';
+import { reSort } from '../../redux-store/actions.ts';
 
 export default function Sorting(): JSX.Element {
   const dispatch = useAppDispatch();
-  const currentSortType = useAppSelector((state) => state.sortType);
+  const currentSortType = useAppSelector((state) => state.mainpage.sortType);
   const [isMenuOpen, setMenuState] = useState(false);
 
   const handleSortOptionChoose = (sortType: SortTypes) => {

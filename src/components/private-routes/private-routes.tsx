@@ -10,7 +10,7 @@ import { useAppSelector } from "../../hooks/storeHooks";
 
 export function PrivateRoutes({isAuthorized} : { isAuthorized: boolean}){
 
-    const offers = useAppSelector((state) => state.offersList);  
+    const offers = useAppSelector((state) => state.mainpage.offersList);  
 
     if (isAuthorized){
         return (

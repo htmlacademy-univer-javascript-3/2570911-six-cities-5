@@ -15,7 +15,7 @@ export function PlaceCard({offer : {id, isPremium, previewImage, price, isFavori
     const link = AppRoutes.Offer + "/" + id;
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const isAuthorized = useAppSelector((state) => state.isAuthorized);
+    const isAuthorized = useAppSelector((state) => state.user.isAuthorized);
     const onBannerClick = useCallback(() => {
         if (!isAuthorized){
           navigate(AppRoutes.Login);

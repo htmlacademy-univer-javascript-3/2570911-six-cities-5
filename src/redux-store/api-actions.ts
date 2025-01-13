@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { Dispatch, State } from '../types/state-types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { updateOffers, updateLoadingStatus, changeCity, updateAuthorizationStatus, updateUserName, updateSelectedOffer, updateReviews, updateOffersNearby, updateFavourites } from './action';
+import { updateOffers, updateLoadingStatus, changeCity, updateAuthorizationStatus, updateUserName, updateSelectedOffer, updateReviews, updateOffersNearby, updateFavourites } from './actions.ts';
 import { OfferType } from '../types/offer-type';
 import { FullOfferType } from '../types/offer-full-description-type';
 import { UserType } from '../types/user';

@@ -1,9 +1,6 @@
-import { OfferList } from "../../components/offer-list/offer-list";
 import { OfferType } from "../../types/offer-type";
-import Map from "../../components/map/map";
-import { MapTypes } from "../../enums/mapTypes";
 import { CitiesList } from "../../components/city-list/city-list";
-import { CITIES, CITIESFULLINFO } from "../../consts/cities";
+import { CITIESFULLINFO } from "../../consts/cities";
 import { useAppSelector } from "../../hooks/storeHooks";
 import { useEffect, useState } from "react";
 import { SortTypes } from "../../enums/sortTypes";
@@ -11,9 +8,9 @@ import { CityOfferList } from "../../components/city-offer-list/city-offer-list"
 import { Header } from "../../components/header/header";
 
 export function MainPage(){
-    const offers = useAppSelector((state) => state.offersList); 
-    const city = useAppSelector((state) => state.city);
-    const currentSortType = useAppSelector((state) => state.sortType);
+    const offers = useAppSelector((state) => state.mainpage.offersList); 
+    const city = useAppSelector((state) => state.mainpage.city);
+    const currentSortType = useAppSelector((state) => state.mainpage.sortType);
 
     const [currentCityOffers, setCurrentCityOffers] = useState<OfferType[]>(offers);
     const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
