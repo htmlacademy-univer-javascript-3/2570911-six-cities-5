@@ -7,18 +7,15 @@ export function OfferList({ offers, selectedOfferChange }:
   const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log('Active offer ID changed:', activeOfferId); // Логируем изменение activeOfferId
-    selectedOfferChange(activeOfferId); // Передаем выбранный оффер в родительский компонент
+    selectedOfferChange(activeOfferId); 
   }, [activeOfferId, selectedOfferChange]);
 
   const handleMouseEnter = (offerId: string) => {
-    console.log('Mouse entered on offer:', offerId); // Логируем, когда мышь заходит на карточку
-    setActiveOfferId(offerId); // Устанавливаем активный оффер
+    setActiveOfferId(offerId); 
   };
 
   const handleMouseLeave = () => {
-    console.log('Mouse left the offer'); // Логируем, когда мышь уходит с карточки
-    setActiveOfferId(null); // Сбрасываем активный оффер
+    setActiveOfferId(null); 
   };
 
   return (
@@ -27,8 +24,8 @@ export function OfferList({ offers, selectedOfferChange }:
         <PlaceCard
           key={offer.id}
           offer={offer}
-          onMouseEnter={() => handleMouseEnter(offer.id)} // Наведение на карточку
-          onMouseLeave={handleMouseLeave} // Уход с карточки
+          onMouseEnter={() => handleMouseEnter(offer.id)} 
+          onMouseLeave={handleMouseLeave} 
         />))}
     </div>
   );

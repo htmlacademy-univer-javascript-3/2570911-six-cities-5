@@ -1,6 +1,6 @@
 import { CityType } from "../types/city-type";
 
-export const Cities = [
+export const CITIES = [
     {
         name : 'Paris'
     },
@@ -21,7 +21,7 @@ export const Cities = [
       },
 ];
 
-export const CitiesFullInfo : Record<string, CityType> = {
+export const CITIESFULLINFO : Record<string, CityType> = {
     'Paris': {
             name: 'Paris',
             id: 1,
