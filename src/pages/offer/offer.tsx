@@ -5,10 +5,9 @@ import Map from "../../components/map/map";
 import { MapTypes } from "../../enums/mapTypes";
 import NearbyOffersList from "../../components/nearby-offers/nearby-offers";
 import { useAppDispatch, useAppSelector } from "../../hooks/storeHooks";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Header } from "../../components/header/header";
-import { changeOfferFavoriteStatus, fetchDetailOffer, fetchNearbyOffers, fetchReviews } from "../../redux-store/api-actions";
-import { AppRoutes } from "../../enums/route-types";
+import { fetchDetailOffer, fetchNearbyOffers, fetchReviews } from "../../redux-store/api-actions";
 import { OfferType } from "../../types/offer-type";
 
 export function Offer(){
@@ -31,10 +30,10 @@ export function Offer(){
 
 
     const [activeOfferId, setActiveOfferId] = useState<string | null>(null);
-    const reviews = useAppSelector((state) => state.reviews);
-    let currentOffer = useAppSelector((state) => state.selectedOffer);
-    let nearbyOffers = useAppSelector((state) => state.nearbyOffers);
-    const isAuthorized = useAppSelector((state) => state.isAuthorized);
+    const reviews = useAppSelector((state) => state.selectedOffer.reviews);
+    let currentOffer = useAppSelector((state) => state.selectedOffer.selectedOffer);
+    let nearbyOffers = useAppSelector((state) => state.selectedOffer.nearbyOffers);
+    const isAuthorized = useAppSelector((state) => state.user.isAuthorized);
     if (!currentOffer) {
       return <div>Offer not found</div>;
     }

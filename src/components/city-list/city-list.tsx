@@ -1,5 +1,5 @@
 import {useAppDispatch} from '../../hooks/storeHooks.ts';
-import {changeCity} from '../../redux-store/action.ts';
+import {changeCity} from '../../redux-store/actions.ts';
 import { CityType } from '../../types/city-type.ts';
 
 export function CitiesList({cities}: {cities: Record<string, CityType>}): JSX.Element {
